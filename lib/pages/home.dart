@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,7 +18,7 @@ class Home extends StatelessWidget {
             title: Text('Controle de Acesso IFMT'),
             centerTitle: true,
             textTheme:
-            Theme.of(context).textTheme.apply(bodyColor: Colors.black),
+                Theme.of(context).textTheme.apply(bodyColor: Colors.black),
             bottom: TabBar(
               tabs: <Widget>[
                 Tab(icon: Icon(Icons.list)),
@@ -21,13 +26,20 @@ class Home extends StatelessWidget {
               ],
             ),
           ),
-          //body: TabBarView(
-          //children: <Widget>[
-          //],
-          //),
+          body: TabBarView(
+            children: containers,
+          ),
         ),
-        // body: Text("Olá flutter!!!"),
       ),
     );
   }
+
+  List<Widget> containers = [
+    Container(
+      color: Colors.blue,
+    ),
+    Container(
+      color: Colors.blue,
+    )
+  ];
 }
