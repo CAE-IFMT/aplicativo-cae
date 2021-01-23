@@ -1,3 +1,4 @@
+import 'package:controle_de_entrada/widgets/scan_qrcode.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -39,7 +40,7 @@ class _HomeState extends State<Home> {
       color: Colors.blue,
     ),
     Container(
-      color: Colors.blue,
-    )
+      child: ScanQRCode(),
+    ),
   ];
 }
