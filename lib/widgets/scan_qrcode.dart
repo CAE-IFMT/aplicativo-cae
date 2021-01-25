@@ -6,10 +6,8 @@ class ScanQRCode extends StatefulWidget {
   @override
   _ScanQRCodeState createState() => _ScanQRCodeState();
 }
-
 class _ScanQRCodeState extends State<ScanQRCode> {
   String result = 'Hey There!';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +25,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
-
+  
   Future _scanQR() async{
     try{
       String qrResult = (await BarcodeScanner.scan()) as String;
@@ -54,4 +52,12 @@ class _ScanQRCodeState extends State<ScanQRCode> {
       });
     }
   }
+}
+
+class Result extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+
+  }
+
 }
