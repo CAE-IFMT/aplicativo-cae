@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 class QRCodeController extends GetxController {
   String result = 'Hey There!';
-
   bool _isOnScan = false;
 
   bool get isOnScan => _isOnScan;
@@ -12,7 +11,7 @@ class QRCodeController extends GetxController {
   Future scanQR() async {
     _isOnScan = true;
     try {
-      String qrResult = (await BarcodeScanner.scan()) as String;
+      String qrResult = (await BarcodeScanner.scan());
 
       result = qrResult;
     } on PlatformException catch (ex) {
