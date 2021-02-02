@@ -1,7 +1,11 @@
+import 'package:controle_de_entrada/conect_API/login_api.dart';
+import 'package:controle_de_entrada/rotas/app_pages.dart';
+import 'package:controle_de_entrada/rotas/rotas.dart';
 import 'package:controle_de_entrada/widgets/button.dart';
 import 'package:controle_de_entrada/widgets/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'home.dart';
 
 class Login extends StatefulWidget {
@@ -15,12 +19,6 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, //tira o debug da telas
@@ -29,7 +27,10 @@ class _LoginState extends State<Login> {
         appBar: AppBar(
           title: Text('Controle de Acesso IFMT'),
           centerTitle: true,
-          textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.black),
+          textTheme: Theme
+              .of(context)
+              .textTheme
+              .apply(bodyColor: Colors.black),
         ),
         body: _body(),
       ),
@@ -48,11 +49,20 @@ class _LoginState extends State<Login> {
               height: 125,
               child: Image.asset("images/login.png"),
             ),
-            AppText('Login', 'Informe o Login',
-                controller: _login, validator: _validateLogin),
+            AppText(
+              'Login',
+              'Informe o Login',
+              controller: _login,
+              validator: _validateLogin,
+            ),
             SizedBox(height: 10),
-            AppText('Senha', 'Informe a Senha',
-                password: true, controller: _senha, validator: _validateSenha),
+            AppText(
+              'Senha',
+              'Informe a Senha',
+              password: true,
+              controller: _senha,
+              validator: _validateSenha,
+            ),
             SizedBox(height: 10),
             AppButton(
               'Login',
@@ -64,18 +74,19 @@ class _LoginState extends State<Login> {
     );
   }
 
-  _onClickLogin() {
+  _onClickLogin() async {
     String login = _login.text;
     String senha = _senha.text;
+
     if (!_formKey.currentState.validate()) {
       return;
     }
-    //fazer validaçao de dados com a api
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Home()),
-    );
-    //print('Login: $login, Senha: $senha');
+    var response = await LoginApi.login(login, senha);
+    if (response) {
+      Get.toNamed(Routes.HOME);
+    } else {
+      return showAlertDialog(context);
+    }
   }
 
   String _validateLogin(String value) {
@@ -91,4 +102,30 @@ class _LoginState extends State<Login> {
     }
     return null;
   }
+}
+
+showAlertDialog(BuildContext context) {
+  // configura o button
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    color: Colors.green,
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+  // configura o  AlertDialog
+  AlertDialog alerta = AlertDialog(
+    title: Text('Dados Invalidos'),
+    content: Text('Verifique se o login e/ou a senha estão corretos!'),
+    actions: [
+      okButton,
+    ],
+  );
+  // exibe o dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alerta;
+    },
+  );
 }
