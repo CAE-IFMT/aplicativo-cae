@@ -1,7 +1,7 @@
 import 'package:controle_de_entrada/conect_API/controllers/PessoaController.dart';
+import 'package:controle_de_entrada/pages/informacoes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'informacoes.dart';
 
 class ListaCadastrados extends GetView<PessoaController> {
   @override
