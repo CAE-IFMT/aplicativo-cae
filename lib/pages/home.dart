@@ -56,12 +56,11 @@ class Home extends GetView<QRCodeController> {
   }
 
   Future<bool> _onBackPressed() {
-    print('entrou nmo bagui');
     return showDialog(
       context: Get.context,
       builder: (context) => new AlertDialog(
         title: Text('Deseja Sair?'),
-        content: Text('Você será direcionado para a tela de login!'),
+        content: Text('Você será direcionado para a tela de login'),
         actions: [
           FlatButton(
             onPressed: () => Navigator.of(context).pop(false),
