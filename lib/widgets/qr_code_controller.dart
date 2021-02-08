@@ -1,4 +1,5 @@
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:controle_de_entrada/rotas/rotas.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -8,22 +9,29 @@ class QRCodeController extends GetxController {
 
   bool get isOnScan => _isOnScan;
 
+  ///
+
+  /**
+   *
+   *
+   *
+   */
   Future scanQR() async {
     _isOnScan = true;
     try {
       String qrResult = (await BarcodeScanner.scan());
-
       result = qrResult;
     } on PlatformException catch (ex) {
       if (ex.code == BarcodeScanner.CameraAccessDenied) {
-        result = 'Camera permission was denied';
+        result = 'A permissão da câmera foi negada!';
       } else {
-        result = 'Unknown Error $ex';
+        result = 'Erro desconhecido $ex';
       }
     } on FormatException {
-      result = 'You pressed the back button before scanning anything';
+      _isOnScan = false;
+       Get.toNamed(Routes.HOME);
     } catch (ex) {
-      result = 'Unknown Error $ex';
+      result = 'Erro desconhecido $ex';
     } finally {
       update();
     }
