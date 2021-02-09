@@ -1,13 +1,13 @@
 import 'package:controle_de_entrada/pages/home.dart';
+import 'package:controle_de_entrada/pages/informacoes.dart';
 import 'package:controle_de_entrada/pages/login.dart';
 import 'package:controle_de_entrada/rotas/rotas.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 
-class AppPages{
+class AppPages {
   static final routes = [
-    GetPage(name: Routes.LOGIN,
-      page: () => Login()),
-    GetPage(name: Routes.HOME,
-        page: () => Home()),
+    GetPage(name: Routes.LOGIN, page: () => Login()),
+    GetPage(name: Routes.HOME, page: () => Home()),
   ];
 }
