@@ -9,14 +9,7 @@ class QRCodeController extends GetxController {
 
   bool get isOnScan => _isOnScan;
 
-  ///
-
-  /**
-   *
-   *
-   *
-   */
-  Future scanQR() async {
+   Future scanQR() async {
     _isOnScan = true;
     try {
       String qrResult = (await BarcodeScanner.scan());
