@@ -1,53 +1,63 @@
-import 'package:controle_de_entrada/conect_API/model/pessoa.dart';
+import 'package:controle_de_entrada/conect_API/model/visita.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class DadosPessoa extends StatelessWidget {
-  final PessoaModel pessoa;
+class DadosPessoa extends StatefulWidget {
+  final VisitaModel visitaModel;
 
-
-  DadosPessoa(this.pessoa);
+  DadosPessoa({this.visitaModel});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+  _DadosPessoa createState() => _DadosPessoa();
+}
 
-        title: Text('Informações Cadastradas'),
-       backgroundColor: Colors.black12,
+class _DadosPessoa extends State<DadosPessoa> {
+  @override
+  Widget build(BuildContext context) {
+    VisitaModel _visitaModel =
+        VisitaModel.fromJson(widget.visitaModel.toJson());
+    return AlertDialog(
+      backgroundColor: Colors.amber,
+      title: Text(
+        'Informações de Requisição',
+        textAlign: TextAlign.center,
       ),
-      body: Flex(
-        direction: Axis.vertical,
-        children: <Widget>[
-          ListBody(
-            mainAxis: Axis.vertical,
-            reverse: false,
-            children: <Widget>[
-              _container('Nome: ${pessoa.name}'),
-              _container('Professor Responsavel: ${pessoa.professorResponsavel}'),
-              _container('Cpf: ${pessoa.cpf}'),
-              _container('Email: ${pessoa.email}'),
-              _container('Data: ${DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_BR').format(pessoa.data)}'),
-            ],
-          )
+      content: ListView(
+        itemExtent: 60.0,
+        children: [
+          _listTile('Nome:', _visitaModel.visitante.nome),
+          _listTile('Professor Responsável:', _visitaModel.professor.nome),
+          _listTile('CPF:', _visitaModel.visitante.cpf),
+          _listTile('E-mail:', _visitaModel.visitante.email),
+          _listTile('Justificativa para acesso:', _visitaModel.motivo),
+          _listTile(
+              'Data requerida:',
+              DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_BR')
+                  .format(_visitaModel.data)),
+          _listTile('Concluido:', _visitaModel.ocorrido.toString()),
         ],
       ),
+      actions: [
+        FlatButton(
+          child: Text("OK"),
+          color: Colors.green,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
     );
   }
 
-
-  _container(String string){
-    return Container(
-      child: Text(
-        string,
-        style: new TextStyle(
-            fontSize: 16, fontWeight: FontWeight.bold),
-      ),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          shape: BoxShape.rectangle, color: Colors.black12),
-      margin: EdgeInsets.only(top: 5, left: 5, right: 5),
-      padding: EdgeInsets.all(10),
+  _listTile(String title, String subTitle) {
+    if (subTitle == 'true') {
+      subTitle = 'Sim';
+    } else if (subTitle == 'false') {
+      subTitle = 'Não';
+    }
+    return ListTile(
+      title: Text(title),
+      subtitle: Text(subTitle),
     );
   }
 }
