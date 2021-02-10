@@ -1,12 +1,11 @@
 import 'package:controle_de_entrada/conect_API/login_api.dart';
-import 'package:controle_de_entrada/rotas/app_pages.dart';
 import 'package:controle_de_entrada/rotas/rotas.dart';
 import 'package:controle_de_entrada/widgets/button.dart';
 import 'package:controle_de_entrada/widgets/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'home.dart';
+
 
 class Login extends StatefulWidget {
   @override
@@ -50,8 +49,8 @@ class _LoginState extends State<Login> {
               child: Image.asset("images/login.png"),
             ),
             AppText(
-              'Login',
-              'Informe o Login',
+              'Usuário ',
+              'Informe o Usuário',
               controller: _login,
               validator: _validateLogin,
             ),
@@ -65,7 +64,7 @@ class _LoginState extends State<Login> {
             ),
             SizedBox(height: 10),
             AppButton(
-              'Login',
+              'Entrar',
               onPressed: _onClickLogin,
             ),
           ],
@@ -91,7 +90,7 @@ class _LoginState extends State<Login> {
 
   String _validateLogin(String value) {
     if (value.isEmpty) {
-      return "Digite o login";
+      return "Digite o usuário ";
     }
     return null;
   }
@@ -102,30 +101,32 @@ class _LoginState extends State<Login> {
     }
     return null;
   }
+
+  showAlertDialog(BuildContext context) {
+    // configura o button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      color: Colors.green,
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    // configura o  AlertDialog
+    AlertDialog alerta = AlertDialog(
+      title: Text('Dados Inválidos'),
+      content: Text('Verifique se o usuário ou/e a senha estão corretos!'),
+      actions: [
+        okButton,
+      ],
+    );
+    // exibe o dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
+  }
 }
 
-showAlertDialog(BuildContext context) {
-  // configura o button
-  Widget okButton = FlatButton(
-    child: Text("OK"),
-    color: Colors.green,
-    onPressed: () {
-      Navigator.of(context).pop();
-    },
-  );
-  // configura o  AlertDialog
-  AlertDialog alerta = AlertDialog(
-    title: Text('Dados Invalidos'),
-    content: Text('Verifique se o login e/ou a senha estão corretos!'),
-    actions: [
-      okButton,
-    ],
-  );
-  // exibe o dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alerta;
-    },
-  );
-}
+
