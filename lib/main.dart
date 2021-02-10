@@ -1,5 +1,4 @@
-import 'package:controle_de_entrada/conect_API/pessoa_bindings.dart';
-import 'package:controle_de_entrada/pages/login.dart';
+import 'package:controle_de_entrada/conect_API/visita_binding.dart';
 import 'package:controle_de_entrada/rotas/app_pages.dart';
 import 'package:controle_de_entrada/rotas/rotas.dart';
 import 'package:flutter/material.dart';
@@ -10,19 +9,17 @@ void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return GetMaterialApp(
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: [const Locale('pt', 'BR')],
-      debugShowCheckedModeBanner: false, //tira o debug da telas
-      initialBinding: PessoaListBinding(),
+      debugShowCheckedModeBanner: false,
+      initialBinding: VisitaListBinding(),
       getPages: AppPages.routes,
       initialRoute: Routes.LOGIN,
     );
   }
-
 }
-

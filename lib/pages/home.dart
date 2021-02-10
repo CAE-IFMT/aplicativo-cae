@@ -1,5 +1,6 @@
 import 'package:controle_de_entrada/rotas/rotas.dart';
 import 'package:controle_de_entrada/widgets/lista_cadastrados.dart';
+import 'package:controle_de_entrada/widgets/qr_code.dart';
 import 'package:controle_de_entrada/widgets/qr_code_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,9 +27,10 @@ class Home extends GetView<QRCodeController> {
             body: GetBuilder(
               init: controller,
               builder: (controller) {
-                return controller.isOnScan ? _telaScan(context) : _telaLista();
+                return controller.isOnScan ? QRCodeResult() : ListaCadastrados();
               },
             ),
+
             floatingActionButton: FloatingActionButton.extended(
               icon: Icon(Icons.qr_code_scanner),
               label: Text('Scan'),
@@ -40,20 +42,7 @@ class Home extends GetView<QRCodeController> {
     );
   }
 
-  _telaScan(BuildContext context) {
-    return Center(
-      child: Text(
-        controller.result,
-        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
 
-  _telaLista() {
-    return Container(
-      child: ListaCadastrados(),
-    );
-  }
 
   Future<bool> _onBackPressed() {
     return showDialog(
