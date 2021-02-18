@@ -10,4 +10,8 @@ class VisitaRepository {
   Future<List<VisitaModel>> fetchVisita() async {
     return await this.provider.fetchVisita();
   }
+
+  Future<VisitaModel> fetchById(int id) async {
+    return await this.provider.fetchById(id);
+  }
 }
