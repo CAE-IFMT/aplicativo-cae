@@ -1,13 +1,14 @@
 import 'package:controle_de_entrada/rotas/rotas.dart';
-import 'package:controle_de_entrada/widgets/lista_cadastrados.dart';
-import 'package:controle_de_entrada/widgets/qr_code.dart';
-import 'package:controle_de_entrada/widgets/qr_code_controller.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:controle_de_entrada/widgets/body_cadastrados.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Home extends GetView<QRCodeController> {
+class Home extends StatefulWidget {
   @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onBackPressed,
@@ -24,25 +25,12 @@ class Home extends GetView<QRCodeController> {
               textTheme:
                   Theme.of(context).textTheme.apply(bodyColor: Colors.black),
             ),
-            body: GetBuilder(
-              init: controller,
-              builder: (controller) {
-                return controller.isOnScan ? QRCodeResult() : ListaCadastrados();
-              },
-            ),
-
-            floatingActionButton: FloatingActionButton.extended(
-              icon: Icon(Icons.qr_code_scanner),
-              label: Text('Scan'),
-              onPressed: () => controller.scanQR(),
-            ),
+            body: ListaCadastrados(),
           ),
         ),
       ),
     );
   }
-
-
 
   Future<bool> _onBackPressed() {
     return showDialog(
