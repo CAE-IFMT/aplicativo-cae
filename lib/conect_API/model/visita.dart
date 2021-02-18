@@ -1,10 +1,9 @@
 import 'package:controle_de_entrada/conect_API/model/professor.dart';
 import 'package:controle_de_entrada/conect_API/model/visitante.dart';
-import 'package:intl/intl.dart';
 
 class VisitaModel {
   int id;
-  DateTime data;
+  String data;
   String motivo;
   bool ocorrido;
   Professor professor;
@@ -20,7 +19,7 @@ class VisitaModel {
 
   VisitaModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    data =  DateTime.parse(json['data'].toString());
+    data =  json['data'];
     motivo = json['motivo'];
     ocorrido = json['ocorrido'];
     professor = json['professor'] != null
