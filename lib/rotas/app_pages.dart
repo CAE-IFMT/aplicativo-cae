@@ -1,5 +1,4 @@
 import 'package:controle_de_entrada/pages/home.dart';
-import 'package:controle_de_entrada/pages/informacoes.dart';
 import 'package:controle_de_entrada/pages/login.dart';
 import 'package:controle_de_entrada/rotas/rotas.dart';
 import 'package:get/get.dart';
