@@ -18,7 +18,7 @@ class QRCodeResult extends GetView<ScanController> {
     return Scaffold(
       body: GetBuilder(
         init: controller,
-        initState: (state) async => await controller.fetch(visitaModel.id),
+        initState: (state) async => await controller.fetchById(visitaModel.id),
         builder: (controller) {
           return controller.visita == null
               ? Center(child: CircularProgressIndicator())
@@ -28,7 +28,7 @@ class QRCodeResult extends GetView<ScanController> {
     );
   }
 
-  Card _detalhes(controller) {
+  Card _detalhes(ScanController controller) {
     return Card(
       child: Column(
         children: [
@@ -45,25 +45,22 @@ class QRCodeResult extends GetView<ScanController> {
               RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.red)
-                ),
+                    side: BorderSide(color: Colors.red)),
                 child: Text('Voltar'),
                 color: Colors.red,
-                onPressed: (){
-                  VisitaController visitaController = Get.find();
-                  visitaController.isOnScan = false;
-                  Get.toNamed(Routes.HOME);
+                onPressed: () {
+                  _returnHome();
                 },
               ),
               RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.green)
-                ),
-                child: Text('Altorizar'),
+                    side: BorderSide(color: Colors.green)),
+                child: Text('Autorizar'),
                 color: Colors.green,
-                onPressed: (){
-
+                onPressed: () {
+                  controller.atualizaStatusOcorrido(controller.visita.id);
+                  _returnHome();
                 },
               ),
             ],
@@ -71,6 +68,13 @@ class QRCodeResult extends GetView<ScanController> {
         ],
       ),
     );
+  }
+
+  void _returnHome() {
+    VisitaController visitaController = Get.find();
+    visitaController.isOnScan = false;
+    visitaController.fetch();
+    Get.toNamed(Routes.HOME);
   }
 
   VisitaModel _converteStringToObject(String result) {
