@@ -1,20 +1,11 @@
-import 'package:controle_de_entrada/conect_API/login_api.dart';
+import 'package:controle_de_entrada/conect_API/controllers/login_controller.dart';
 import 'package:controle_de_entrada/rotas/rotas.dart';
 import 'package:controle_de_entrada/widgets/button.dart';
 import 'package:controle_de_entrada/widgets/text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
-class Login extends StatefulWidget {
-  @override
-  _LoginState createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-  final _login = TextEditingController();
-  final _senha = TextEditingController();
+class Login extends GetView<LoginController> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -26,17 +17,19 @@ class _LoginState extends State<Login> {
         appBar: AppBar(
           title: Text('Controle de Acesso IFMT'),
           centerTitle: true,
-          textTheme: Theme
-              .of(context)
-              .textTheme
-              .apply(bodyColor: Colors.black),
+          textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.black),
         ),
-        body: _body(),
+        body: GetBuilder(
+          init: controller,
+          builder: (controller) {
+            return _body(controller, context);
+          },
+        ),
       ),
     );
   }
 
-  _body() {
+  Form _body(LoginController controller, BuildContext context) {
     return Form(
       key: _formKey,
       child: Container(
@@ -51,7 +44,7 @@ class _LoginState extends State<Login> {
             AppText(
               'Usuário ',
               'Informe o Usuário',
-              controller: _login,
+              controller: controller.usuario,
               validator: _validateLogin,
             ),
             SizedBox(height: 10),
@@ -59,13 +52,14 @@ class _LoginState extends State<Login> {
               'Senha',
               'Informe a Senha',
               password: true,
-              controller: _senha,
+              controller: controller.senha,
               validator: _validateSenha,
             ),
             SizedBox(height: 10),
             AppButton(
               'Entrar',
-              onPressed: _onClickLogin,
+              onPressed: () => _onClickLogin(controller, context),
+              showProgress: controller.flagEntrar,
             ),
           ],
         ),
@@ -73,15 +67,19 @@ class _LoginState extends State<Login> {
     );
   }
 
-  _onClickLogin() async {
-    String login = _login.text;
-    String senha = _senha.text;
+  _onClickLogin(LoginController controller, BuildContext context) async {
+    String login = controller.usuario.text;
+    String senha = controller.senha.text;
 
     if (!_formKey.currentState.validate()) {
       return;
     }
-    var response = await LoginApi.login(login, senha);
+
+    controller.flagEntrar = true;
+
+    var response = await controller.login(login, senha);
     if (response) {
+      controller.flagEntrar = true;
       Get.toNamed(Routes.HOME);
     } else {
       return showAlertDialog(context);
@@ -103,30 +101,24 @@ class _LoginState extends State<Login> {
   }
 
   showAlertDialog(BuildContext context) {
-    // configura o button
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      color: Colors.green,
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-    // configura o  AlertDialog
-    AlertDialog alerta = AlertDialog(
-      title: Text('Dados Inválidos'),
-      content: Text('Verifique se o usuário ou/e a senha estão corretos!'),
-      actions: [
-        okButton,
-      ],
-    );
-    // exibe o dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return alerta;
+        return AlertDialog(
+          title: Text('Dados Inválidos'),
+          content: Text('Verifique se o usuário ou/e a senha estão corretos!'),
+          actions: [
+            FlatButton(
+              child: Text("OK"),
+              color: Colors.green,
+              onPressed: () {
+                controller.flagEntrar = false;
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
       },
     );
   }
 }
-
-
