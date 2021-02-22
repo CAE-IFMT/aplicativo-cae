@@ -1,3 +1,4 @@
+import 'package:controle_de_entrada/conect_API/controllers/login_controller.dart';
 import 'package:controle_de_entrada/conect_API/controllers/scan_controller.dart';
 import 'package:controle_de_entrada/conect_API/controllers/visita_controller.dart';
 import 'package:controle_de_entrada/conect_API/provider/visita_provedor.dart';
@@ -28,5 +29,6 @@ class VisitaListBinding extends Bindings {
                 )
             )
     );
+    Get.lazyPut<LoginController>(() => LoginController());
   }
 }
