@@ -1,3 +1,4 @@
+import 'package:controle_de_entrada/conect_API/controllers/visita_controller.dart';
 import 'package:controle_de_entrada/rotas/rotas.dart';
 import 'package:controle_de_entrada/widgets/body_cadastrados.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,11 @@ class _HomeState extends State<Home> {
               textTheme:
                   Theme.of(context).textTheme.apply(bodyColor: Colors.black),
             ),
-            body: ListaCadastrados(),
+
+            body: RefreshIndicator(
+              onRefresh: _onRefresh,
+              child:  ListaCadastrados(),
+            )
           ),
         ),
       ),
@@ -52,5 +57,10 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
+  }
+
+  Future<void> _onRefresh() {
+    VisitaController visitaController = Get.find();
+    return visitaController.fetch();
   }
 }
