@@ -24,7 +24,7 @@ class VisitaController extends GetxController {
   String _result;
   String get result => _result;
 
-  Future<VisitaModel> fetch() async {
+  Future<void> fetch() async {
     final visitas = await this.repository.fetchVisita();
     this._visitas = visitas;
     update();
@@ -52,4 +52,6 @@ class VisitaController extends GetxController {
       update();
     }
   }
+
+
 }
