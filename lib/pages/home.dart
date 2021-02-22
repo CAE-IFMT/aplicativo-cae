@@ -1,3 +1,4 @@
+import 'package:controle_de_entrada/conect_API/controllers/login_controller.dart';
 import 'package:controle_de_entrada/conect_API/controllers/visita_controller.dart';
 import 'package:controle_de_entrada/rotas/rotas.dart';
 import 'package:controle_de_entrada/widgets/body_cadastrados.dart';
@@ -50,7 +51,11 @@ class _HomeState extends State<Home> {
             color: Colors.green,
           ),
           FlatButton(
-            onPressed: () => Get.toNamed(Routes.LOGIN),
+            onPressed: () {
+              LoginController logincontroller = Get.find();
+              logincontroller.flagEntrar = false;
+              Get.toNamed(Routes.LOGIN);
+            },
             child: Text('Sim'),
             color: Colors.green,
           ),
