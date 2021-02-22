@@ -14,4 +14,8 @@ class VisitaRepository {
   Future<VisitaModel> fetchById(int id) async {
     return await this.provider.fetchById(id);
   }
+
+  Future<VisitaModel> updateStatusOcorrido(int id) async{
+    return await this.provider.updateStatusOcorrido(id);
+  }
 }
