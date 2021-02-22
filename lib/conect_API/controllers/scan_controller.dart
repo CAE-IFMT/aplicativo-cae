@@ -10,12 +10,14 @@ class ScanController extends GetxController {
   VisitaModel _visita;
   VisitaModel get visita => this._visita;
 
-  Future<VisitaModel> fetch(int id) async {
+  Future<VisitaModel> fetchById(int id) async {
     final visita = await this.repository.fetchById(id);
     this._visita = visita;
-    print(visita.toString());
     update();
   }
 
-
+  Future atualizaStatusOcorrido(int id) async {
+    this._visita = await this.repository.updateStatusOcorrido(id);
+    update();
+  }
 }
