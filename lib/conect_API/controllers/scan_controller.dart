@@ -10,13 +10,20 @@ class ScanController extends GetxController {
   VisitaModel _visita;
   VisitaModel get visita => this._visita;
 
+  bool _flagAutorizar = false;
+  bool get flagAutorizar => this._flagAutorizar;
+  set flagAutorizar(bool value) {
+    _flagAutorizar = value;
+    update();
+  }
+
   Future<VisitaModel> fetchById(int id) async {
     final visita = await this.repository.fetchById(id);
     this._visita = visita;
     update();
   }
 
-  Future atualizaStatusOcorrido(int id) async {
+  Future<void> atualizaStatusOcorrido(int id) async {
     this._visita = await this.repository.updateStatusOcorrido(id);
     update();
   }
