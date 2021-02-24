@@ -16,7 +16,6 @@ class _HomeState extends State<Home> {
       onWillPop: _onBackPressed,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        //tira o debug da telas
         theme: ThemeData(primarySwatch: Colors.green),
         home: DefaultTabController(
           length: 2,
@@ -25,7 +24,7 @@ class _HomeState extends State<Home> {
               title: Text('Controle de Acesso IFMT'),
               centerTitle: true,
               textTheme:
-                  Theme.of(context).textTheme.apply(bodyColor: Colors.black),
+                  Theme.of(context).textTheme.apply(bodyColor: Colors.white),
             ),
 
             body: RefreshIndicator(

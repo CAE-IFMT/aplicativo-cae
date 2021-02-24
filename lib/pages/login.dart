@@ -17,7 +17,7 @@ class Login extends GetView<LoginController> {
         appBar: AppBar(
           title: Text('Controle de Acesso IFMT'),
           centerTitle: true,
-          textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.black),
+          textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.white),
         ),
         body: GetBuilder(
           init: controller,

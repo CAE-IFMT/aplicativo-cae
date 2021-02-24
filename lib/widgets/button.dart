@@ -16,13 +16,13 @@ class AppButton extends StatelessWidget {
         child: showProgress
         ? Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
           ),
         )
         : Text(
           text,
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontSize: 22,
           ),
         ),
