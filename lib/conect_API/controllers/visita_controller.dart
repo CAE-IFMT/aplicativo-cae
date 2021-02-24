@@ -13,6 +13,12 @@ class VisitaController extends GetxController {
   List<VisitaModel> _visitas;
   List<VisitaModel> get visitas => this._visitas;
 
+   List<VisitaModel> _listOcorridos;
+   List<VisitaModel> get listOcorridos => this._listOcorridos;
+
+   List<VisitaModel> _listNaoOcorridos;
+   List<VisitaModel> get listNaoOcorridos => this._listNaoOcorridos;
+
   bool _isOnScan = false;
   bool get isOnScan => _isOnScan;
   set isOnScan(bool value) {
@@ -20,13 +26,12 @@ class VisitaController extends GetxController {
     update();
   }
 
-
   String _result;
   String get result => _result;
 
   Future<void> fetch() async {
-    final visitas = await this.repository.fetchVisita();
-    this._visitas = visitas;
+    this._listOcorridos = await this.repository.listaOcorridos();
+    this._listNaoOcorridos = await this.repository.listaNaoOcorridos();
     update();
   }
 

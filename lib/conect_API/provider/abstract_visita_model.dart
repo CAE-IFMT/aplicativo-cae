@@ -4,4 +4,6 @@ abstract class AbstractVisitaProvider {
   Future<List<VisitaModel>> fetchVisita();
   Future<VisitaModel> fetchById(int id);
   Future<VisitaModel> updateStatusOcorrido(int id);
+  Future<List<VisitaModel>> listaOcorridos();
+  Future<List<VisitaModel>> listaNaoOcorridos();
 }

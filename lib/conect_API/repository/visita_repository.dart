@@ -18,4 +18,12 @@ class VisitaRepository {
   Future<VisitaModel> updateStatusOcorrido(int id) async{
     return await this.provider.updateStatusOcorrido(id);
   }
+
+  Future<List<VisitaModel>> listaOcorridos() async {
+    return await this.provider.listaOcorridos();
+  }
+
+  Future<List<VisitaModel>> listaNaoOcorridos() async {
+    return await this.provider.listaNaoOcorridos();
+  }
 }
