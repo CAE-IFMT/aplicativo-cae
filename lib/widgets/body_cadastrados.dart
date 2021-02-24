@@ -33,16 +33,27 @@ class ListaCadastrados extends GetView<VisitaController> {
         label: Text('Scan'),
         onPressed: () => controller.scanQR(),
       ),
-       body: TabBarView(
+      body: TabBarView(
         children: <Widget>[
-          controller.listNaoOcorridos == null
-              ? Center(child: CircularProgressIndicator())
-              : _listView(controller.listNaoOcorridos),
-          controller.listOcorridos == null
-              ? Center(child: CircularProgressIndicator())
-              : _listView(controller.listOcorridos),
+          _refreshIndicator(
+            controller.listNaoOcorridos == null
+                ? Center(child: CircularProgressIndicator())
+                : _listView(controller.listNaoOcorridos),
+          ),
+          _refreshIndicator(
+            controller.listOcorridos == null
+                ? Center(child: CircularProgressIndicator())
+                : _listView(controller.listOcorridos),
+          ),
         ],
       ),
+    );
+  }
+
+  RefreshIndicator _refreshIndicator(Widget widget) {
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      child: widget,
     );
   }
 
@@ -59,19 +70,17 @@ class ListaCadastrados extends GetView<VisitaController> {
             title: Text(visitas[index].visitante.nome),
             subtitle: Text('CPF: ${visitas[index].visitante.cpf}'),
             leading: CircleAvatar(
-              child: Text(
-                  visitas[index].visitante.nome.substring(0, 1)),
+              child: Text(visitas[index].visitante.nome.substring(0, 1)),
               backgroundColor: Colors.indigo,
             ),
             childrenPadding: EdgeInsets.only(left: 30),
             children: [
               _listTile('Nome:', visitas[index].visitante.nome),
-              _listTile('Professor Responsável:',
-                  visitas[index].professor.nome),
+              _listTile(
+                  'Professor Responsável:', visitas[index].professor.nome),
               _listTile('CPF:', visitas[index].visitante.cpf),
               _listTile('E-mail:', visitas[index].visitante.email),
-              _listTile('Justificativa para acesso:',
-                  visitas[index].motivo),
+              _listTile('Justificativa para acesso:', visitas[index].motivo),
               _listTile('Data requerida:', visitas[index].data),
             ],
           ),
@@ -85,5 +94,10 @@ class ListaCadastrados extends GetView<VisitaController> {
       title: Text(title),
       subtitle: Text(subTitle),
     );
+  }
+
+  Future<void> _onRefresh() {
+    VisitaController visitaController = Get.find();
+    return visitaController.fetch();
   }
 }
