@@ -32,7 +32,7 @@ class QRCodeResult extends GetView<ScanController> {
     return Card(
       child: Column(
         children: [
-          _listTile('Nome', controller.visita.visitante.nome),
+          _listTile('Nome:', controller.visita.visitante.nome),
           _listTile('Professor Responsável:', controller.visita.professor.nome),
           _listTile('CPF:', controller.visita.visitante.cpf),
           _listTile('E-mail:', controller.visita.visitante.email),
@@ -42,26 +42,40 @@ class QRCodeResult extends GetView<ScanController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.red)),
-                child: Text('Voltar'),
-                color: Colors.red,
-                onPressed: () {
-                  _returnHome();
-                },
+              ButtonTheme(
+                minWidth: 100.0,
+                height: 50.0,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      side: BorderSide(color: Colors.red)),
+                  child: Text(
+                    'Voltar',
+                    style: TextStyle(color: Colors.white, fontSize: 17.0),
+
+                  ),
+                  color: Colors.red,
+                  onPressed: () {
+                    _returnHome();
+                  },
+                ),
               ),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.green)),
-                child: Text('Autorizar'),
-                color: Colors.green,
-                onPressed: () {
-                  controller.atualizaStatusOcorrido(controller.visita.id);
-                  _returnHome();
-                },
+              ButtonTheme(
+                minWidth: 100.0,
+                height: 50.0,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      side: BorderSide(color: Colors.green)),
+                  child: _flagAutorizar(controller.flagAutorizar),
+                  color: Colors.green,
+                  onPressed: () async {
+                    controller.flagAutorizar = true;
+                    await controller
+                        .atualizaStatusOcorrido(controller.visita.id);
+                    await _returnHome();
+                  },
+                ),
               ),
             ],
           ),
@@ -70,10 +84,25 @@ class QRCodeResult extends GetView<ScanController> {
     );
   }
 
-  void _returnHome() {
+  _flagAutorizar(bool flag) {
+    if (!flag) {
+      return Text(
+        'Autorizar',
+        style: TextStyle(color: Colors.white, fontSize: 17.0),
+      );
+    } else {
+      return Center(
+          child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      ));
+    }
+  }
+
+  Future<void> _returnHome() async {
     VisitaController visitaController = Get.find();
     visitaController.isOnScan = false;
-    visitaController.fetch();
+    await visitaController.fetch();
+    controller.flagAutorizar = false;
     Get.toNamed(Routes.HOME);
   }
 
