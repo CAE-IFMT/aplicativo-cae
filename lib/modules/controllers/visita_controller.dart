@@ -1,32 +1,40 @@
 import 'package:barcode_scan/barcode_scan.dart';
-import 'package:controle_de_entrada/conect_API/model/visita.dart';
-import 'package:controle_de_entrada/conect_API/repository/visita_repository.dart';
-import 'package:controle_de_entrada/rotas/rotas.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../domain/models/models.dart';
+import '../../domain/repositories/repositories.dart';
+import '../../modules/routes/routes.dart';
+
 class VisitaController extends GetxController {
   VisitaRepository repository;
+
   VisitaController({@required this.repository});
 
-  List<VisitaModel> _visitas;
-  List<VisitaModel> get visitas => this._visitas;
+  List<Visita> _visitas;
 
-   List<VisitaModel> _listOcorridos;
-   List<VisitaModel> get listOcorridos => this._listOcorridos;
+  List<Visita> get visitas => this._visitas;
 
-   List<VisitaModel> _listNaoOcorridos;
-   List<VisitaModel> get listNaoOcorridos => this._listNaoOcorridos;
+  List<Visita> _listOcorridos;
+
+  List<Visita> get listOcorridos => this._listOcorridos;
+
+  List<Visita> _listNaoOcorridos;
+
+  List<Visita> get listNaoOcorridos => this._listNaoOcorridos;
 
   bool _isOnScan = false;
+
   bool get isOnScan => _isOnScan;
+
   set isOnScan(bool value) {
     _isOnScan = value;
     update();
   }
 
   String _result;
+
   String get result => _result;
 
   Future<void> fetch() async {
@@ -53,10 +61,8 @@ class VisitaController extends GetxController {
     } catch (ex) {
       _result = 'Erro desconhecido $ex';
       _isOnScan = false;
-    } finally{
+    } finally {
       update();
     }
   }
-
-
 }

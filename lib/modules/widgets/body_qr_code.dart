@@ -1,13 +1,14 @@
 import 'dart:convert';
-import 'package:controle_de_entrada/conect_API/controllers/scan_controller.dart';
-import 'package:controle_de_entrada/conect_API/controllers/visita_controller.dart';
-import 'package:controle_de_entrada/conect_API/model/visita.dart';
-import 'package:controle_de_entrada/rotas/rotas.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../domain/models/models.dart';
+import '../controllers/controllers.dart';
+import '../routes/routes.dart';
+
 class QRCodeResult extends GetView<ScanController> {
-  VisitaModel visitaModel;
+  Visita visitaModel;
 
   QRCodeResult(result) {
     this.visitaModel = _converteStringToObject(result);
@@ -52,7 +53,6 @@ class QRCodeResult extends GetView<ScanController> {
                   child: Text(
                     'Voltar',
                     style: TextStyle(color: Colors.white, fontSize: 17.0),
-
                   ),
                   color: Colors.red,
                   onPressed: () {
@@ -106,8 +106,8 @@ class QRCodeResult extends GetView<ScanController> {
     Get.toNamed(Routes.HOME);
   }
 
-  VisitaModel _converteStringToObject(String result) {
-    return VisitaModel.fromJson(jsonDecode(result));
+  Visita _converteStringToObject(String result) {
+    return Visita.fromJson(jsonDecode(result));
   }
 
   _listTile(String title, String subTitle) {

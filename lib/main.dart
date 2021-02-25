@@ -1,10 +1,10 @@
-import 'package:controle_de_entrada/conect_API/visita_binding.dart';
-import 'package:controle_de_entrada/rotas/app_pages.dart';
-import 'package:controle_de_entrada/rotas/rotas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
+import 'modules/routes/routes.dart';
+import 'modules/visita_binding.dart';
 
 void main() async {
   await GetStorage.init();

@@ -1,8 +1,9 @@
-import 'package:controle_de_entrada/conect_API/controllers/login_controller.dart';
-import 'package:controle_de_entrada/rotas/rotas.dart';
-import 'package:controle_de_entrada/widgets/body_cadastrados.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../controllers/controllers.dart';
+import '../routes/routes.dart';
+import '../widgets/body_cadastrados.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -46,8 +47,8 @@ class _HomeState extends State<Home> {
           ),
           FlatButton(
             onPressed: () {
-              LoginController logincontroller = Get.find();
-              logincontroller.flagEntrar = false;
+              var loginController = Get.find<LoginController>();
+              loginController.flagEntrar = false;
               Get.toNamed(Routes.LOGIN);
             },
             child: Text('Sim'),

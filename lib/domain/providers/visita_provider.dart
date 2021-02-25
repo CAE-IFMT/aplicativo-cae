@@ -1,9 +1,9 @@
-import 'package:controle_de_entrada/conect_API/model/visita.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'abstract_visita_model.dart';
+import '../models/models.dart';
+import 'providers.dart';
 
 const api = 'https://cae-ifmt.herokuapp.com';
 
@@ -13,14 +13,13 @@ class VisitaProvider implements AbstractVisitaProvider {
   VisitaProvider({@required this.dio});
 
   @override
-  Future<List<VisitaModel>> fetchVisita() async {
+  Future<List<Visita>> fetchVisita() async {
     GetStorage box = GetStorage();
     String tokenBox = box.read('token');
     dio.options.headers["Authorization"] = "Bearer $tokenBox";
     final response = await dio.get('$api/visitas');
-    final visitaModel = response.data
-        .map<VisitaModel>((data) => VisitaModel.fromJson(data))
-        .toList();
+    final visitaModel =
+        response.data.map<Visita>((data) => Visita.fromJson(data)).toList();
     if (response.statusCode == 200) {
       return visitaModel;
     } else {
@@ -30,12 +29,12 @@ class VisitaProvider implements AbstractVisitaProvider {
   }
 
   @override
-  Future<VisitaModel> fetchById(int id) async {
+  Future<Visita> fetchById(int id) async {
     GetStorage box = GetStorage();
     String tokenBox = box.read('token');
     dio.options.headers["Authorization"] = "Bearer $tokenBox";
     final response = await dio.get('$api/visitas/$id');
-    final visitaModel = VisitaModel.fromJson(response.data);
+    final visitaModel = Visita.fromJson(response.data);
     if (response.statusCode == 200) {
       return visitaModel;
     } else {
@@ -45,12 +44,12 @@ class VisitaProvider implements AbstractVisitaProvider {
   }
 
   @override
-  Future<VisitaModel> updateStatusOcorrido(int id) async {
+  Future<Visita> updateStatusOcorrido(int id) async {
     GetStorage box = GetStorage();
     String tokenBox = box.read('token');
     dio.options.headers["Authorization"] = "Bearer ${tokenBox}";
     final response = await dio.put('$api/visitas/$id/ocorrida');
-    final visitaModel = VisitaModel.fromJson(response.data);
+    final visitaModel = Visita.fromJson(response.data);
     if (response.statusCode == 200) {
       return visitaModel;
     } else {
@@ -60,14 +59,13 @@ class VisitaProvider implements AbstractVisitaProvider {
   }
 
   @override
-  Future<List<VisitaModel>> listaNaoOcorridos() async{
+  Future<List<Visita>> listaNaoOcorridos() async {
     GetStorage box = GetStorage();
     String tokenBox = box.read('token');
     dio.options.headers["Authorization"] = "Bearer $tokenBox";
     final response = await dio.get('$api/visitas/naoOcorridas');
-    final visitaModel = response.data
-        .map<VisitaModel>((data) => VisitaModel.fromJson(data))
-        .toList();
+    final visitaModel =
+        response.data.map<Visita>((data) => Visita.fromJson(data)).toList();
     if (response.statusCode == 200) {
       return visitaModel;
     } else {
@@ -77,15 +75,14 @@ class VisitaProvider implements AbstractVisitaProvider {
   }
 
   @override
-  Future<List<VisitaModel>> listaOcorridos() async{
+  Future<List<Visita>> listaOcorridos() async {
     GetStorage box = GetStorage();
     String tokenBox = box.read('token');
     dio.options.headers["Authorization"] = "Bearer $tokenBox";
 
     final response = await dio.get('$api/visitas/ocorridas');
-    final visitaModel = response.data
-        .map<VisitaModel>((data) => VisitaModel.fromJson(data))
-        .toList();
+    final visitaModel =
+        response.data.map<Visita>((data) => Visita.fromJson(data)).toList();
 
     if (response.statusCode == 200) {
       return visitaModel;

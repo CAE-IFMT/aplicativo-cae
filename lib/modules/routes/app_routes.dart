@@ -1,8 +1,12 @@
-import 'package:controle_de_entrada/pages/home.dart';
-import 'package:controle_de_entrada/pages/login.dart';
-import 'package:controle_de_entrada/rotas/rotas.dart';
+import 'package:controle_de_entrada/modules/pages/home.dart';
+import 'package:controle_de_entrada/modules/pages/login.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+
+abstract class Routes {
+  static const LOGIN = '/login';
+  static const HOME = '/home';
+}
 
 class AppPages {
   static final routes = [

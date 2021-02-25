@@ -1,9 +1,9 @@
-import 'package:controle_de_entrada/conect_API/controllers/login_controller.dart';
-import 'package:controle_de_entrada/rotas/rotas.dart';
-import 'package:controle_de_entrada/widgets/button.dart';
-import 'package:controle_de_entrada/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../controllers/controllers.dart';
+import '../routes/routes.dart';
+import '../widgets/widgets.dart';
 
 class Login extends GetView<LoginController> {
   final _formKey = GlobalKey<FormState>();

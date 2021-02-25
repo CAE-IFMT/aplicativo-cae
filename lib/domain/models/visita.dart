@@ -1,7 +1,6 @@
-import 'package:controle_de_entrada/conect_API/model/professor.dart';
-import 'package:controle_de_entrada/conect_API/model/visitante.dart';
+import 'models.dart';
 
-class VisitaModel {
+class Visita {
   int id;
   String data;
   String motivo;
@@ -9,7 +8,7 @@ class VisitaModel {
   Professor professor;
   Visitante visitante;
 
-  VisitaModel(
+  Visita(
       {this.id,
       this.data,
       this.motivo,
@@ -17,9 +16,9 @@ class VisitaModel {
       this.professor,
       this.visitante});
 
-  VisitaModel.fromJson(Map<String, dynamic> json) {
+  Visita.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    data =  json['data'];
+    data = json['data'];
     motivo = json['motivo'];
     ocorrido = json['ocorrido'];
     professor = json['professor'] != null
@@ -33,7 +32,7 @@ class VisitaModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['data'] =this.data;
+    data['data'] = this.data;
     data['motivo'] = this.motivo;
     data['ocorrido'] = this.ocorrido;
     if (this.professor != null) {

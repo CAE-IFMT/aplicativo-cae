@@ -1,29 +1,30 @@
-import 'package:controle_de_entrada/conect_API/model/visita.dart';
-import 'package:controle_de_entrada/conect_API/provider/abstract_visita_model.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../models/models.dart';
+import '../providers/providers.dart';
 
 class VisitaRepository {
   final AbstractVisitaProvider provider;
 
   VisitaRepository({@required this.provider});
 
-  Future<List<VisitaModel>> fetchVisita() async {
+  Future<List<Visita>> fetchVisita() async {
     return await this.provider.fetchVisita();
   }
 
-  Future<VisitaModel> fetchById(int id) async {
+  Future<Visita> fetchById(int id) async {
     return await this.provider.fetchById(id);
   }
 
-  Future<VisitaModel> updateStatusOcorrido(int id) async{
+  Future<Visita> updateStatusOcorrido(int id) async {
     return await this.provider.updateStatusOcorrido(id);
   }
 
-  Future<List<VisitaModel>> listaOcorridos() async {
+  Future<List<Visita>> listaOcorridos() async {
     return await this.provider.listaOcorridos();
   }
 
-  Future<List<VisitaModel>> listaNaoOcorridos() async {
+  Future<List<Visita>> listaNaoOcorridos() async {
     return await this.provider.listaNaoOcorridos();
   }
 }

@@ -1,8 +1,9 @@
-import 'package:controle_de_entrada/conect_API/controllers/visita_controller.dart';
-import 'package:controle_de_entrada/conect_API/model/visita.dart';
-import 'package:controle_de_entrada/widgets/body_qr_code.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../domain/models/models.dart';
+import '../controllers/controllers.dart';
+import 'widgets.dart';
 
 class ListaCadastrados extends GetView<VisitaController> {
   @override
@@ -57,7 +58,7 @@ class ListaCadastrados extends GetView<VisitaController> {
     );
   }
 
-  ListView _listView(List<VisitaModel> visitas) {
+  ListView _listView(List<Visita> visitas) {
     return ListView.separated(
       itemCount: visitas.length,
       separatorBuilder: (BuildContext context, int index) => Divider(

@@ -1,23 +1,28 @@
-import 'package:controle_de_entrada/conect_API/model/visita.dart';
-import 'package:controle_de_entrada/conect_API/repository/visita_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../domain/models/models.dart';
+import '../../domain/repositories/repositories.dart';
+
 class ScanController extends GetxController {
   VisitaRepository repository;
+
   ScanController({@required this.repository});
 
-  VisitaModel _visita;
-  VisitaModel get visita => this._visita;
+  Visita _visita;
+
+  Visita get visita => this._visita;
 
   bool _flagAutorizar = false;
+
   bool get flagAutorizar => this._flagAutorizar;
+
   set flagAutorizar(bool value) {
     _flagAutorizar = value;
     update();
   }
 
-  Future<VisitaModel> fetchById(int id) async {
+  Future<void> fetchById(int id) async {
     final visita = await this.repository.fetchById(id);
     this._visita = visita;
     update();
