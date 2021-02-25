@@ -17,11 +17,15 @@ class VisitaListBinding extends Bindings {
         ),
       ),
     );
-    Get.lazyPut<ScanController>(() => ScanController(
-            repository: VisitaRepository(
-                provider: VisitaProvider(
-          dio: Dio(),
-        ))));
+    Get.lazyPut<ScanController>(
+      () => ScanController(
+        repository: VisitaRepository(
+          provider: VisitaProvider(
+            dio: Dio(),
+          ),
+        ),
+      ),
+    );
     Get.lazyPut<LoginController>(() => LoginController());
   }
 }
