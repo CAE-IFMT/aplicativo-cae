@@ -11,7 +11,10 @@ class ListaCadastrados extends GetView<VisitaController> {
     return Scaffold(
       body: GetBuilder(
           init: controller,
-          initState: (state) async => await controller.fetch(),
+          initState: (state) async {
+            await controller.fetch('ocorrido');
+            await controller.fetch('naoOcorrido');
+          },
           builder: (controller) {
             return controller.isOnScan
                 ? QRCodeResult(controller.result)
@@ -40,20 +43,22 @@ class ListaCadastrados extends GetView<VisitaController> {
             controller.listNaoOcorridos == null
                 ? Center(child: CircularProgressIndicator())
                 : _listView(controller.listNaoOcorridos),
+            'naoOcorridos',
           ),
           _refreshIndicator(
             controller.listOcorridos == null
                 ? Center(child: CircularProgressIndicator())
                 : _listView(controller.listOcorridos),
+            'ocorridos',
           ),
         ],
       ),
     );
   }
 
-  RefreshIndicator _refreshIndicator(Widget widget) {
+  RefreshIndicator _refreshIndicator(Widget widget, String flag) {
     return RefreshIndicator(
-      onRefresh: _onRefresh,
+      onRefresh: () => _onRefresh(flag),
       child: widget,
     );
   }
@@ -97,8 +102,8 @@ class ListaCadastrados extends GetView<VisitaController> {
     );
   }
 
-  Future<void> _onRefresh() {
+  Future<void> _onRefresh(String flag) {
     VisitaController visitaController = Get.find();
-    return visitaController.fetch();
+    return visitaController.fetch(flag);
   }
 }

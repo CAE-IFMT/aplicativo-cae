@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppText extends StatelessWidget {
-  String label;
-  String hint;
-  bool password;
-  TextEditingController controller;
-  FormFieldValidator<String> validator;
+  final String label;
+  final String hint;
+  final bool password;
+  final TextEditingController controller;
+  final FormFieldValidator<String> validator;
 
   AppText(
       this.label, this.hint, {this.password = false, this.controller, this.validator});
