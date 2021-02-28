@@ -8,18 +8,16 @@ import '../controllers/controllers.dart';
 import '../routes/routes.dart';
 
 class QRCodeResult extends GetView<ScanController> {
-  Visita visitaModel;
+  final String visitaModelString;
 
-  QRCodeResult(result) {
-    this.visitaModel = _converteStringToObject(result);
-  }
+  QRCodeResult(this.visitaModelString);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder(
         init: controller,
-        initState: (state) async => await controller.fetchById(visitaModel.id),
+        initState: (state) async => await controller.fetchById(_converteStringToObject(visitaModelString).id),
         builder: (controller) {
           return controller.visita == null
               ? Center(child: CircularProgressIndicator())
