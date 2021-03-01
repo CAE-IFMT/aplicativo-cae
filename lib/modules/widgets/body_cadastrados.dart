@@ -12,8 +12,8 @@ class ListaCadastrados extends GetView<VisitaController> {
       body: GetBuilder(
           init: controller,
           initState: (state) async {
-            await controller.fetch('ocorrido');
-            await controller.fetch('naoOcorrido');
+            await controller.fetch('ocorridos');
+            await controller.fetch('naoOcorridos');
           },
           builder: (controller) {
             return controller.isOnScan

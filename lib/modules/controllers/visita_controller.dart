@@ -38,9 +38,9 @@ class VisitaController extends GetxController {
   String get result => _result;
 
   Future<void> fetch(String flag) async {
-    if (flag == 'ocorrido') {
+    if (flag == 'ocorridos') {
       this._listOcorridos = await this.repository.listaOcorridos();
-    } else if (flag == 'naoOcorrido') {
+    } else if (flag == 'naoOcorridos') {
       this._listNaoOcorridos = await this.repository.listaNaoOcorridos();
     }
     update();
