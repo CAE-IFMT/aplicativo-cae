@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// Classe generica para criação do botão de login
+/// usada para facilitar a implementação do codigo
 class AppButton extends StatelessWidget {
   final String text;
   final Function onPressed;
@@ -11,6 +13,7 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 45,
+      // ignore: deprecated_member_use
       child: RaisedButton(
         color: Colors.green,
         child: showProgress

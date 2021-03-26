@@ -3,6 +3,7 @@ import 'package:controle_de_entrada/modules/pages/login.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 
+///classe que define as rotas de tela
 abstract class Routes {
   static const LOGIN = '/login';
   static const HOME = '/home';

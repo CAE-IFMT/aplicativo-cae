@@ -7,6 +7,8 @@ import '../../domain/models/models.dart';
 import '../controllers/controllers.dart';
 import '../routes/routes.dart';
 
+///Classe onde trata informações scaneados do QRCode
+///vindo da classe ListaCadastrados
 class QRCodeResult extends GetView<ScanController> {
   final String visitaModelString;
 
@@ -27,6 +29,7 @@ class QRCodeResult extends GetView<ScanController> {
     );
   }
 
+  ///imprime na tela todas as informações relacionadas a visita scaneada
   _detalhes(ScanController controller) {
     return Column(
       children: [
@@ -50,6 +53,7 @@ class QRCodeResult extends GetView<ScanController> {
             ButtonTheme(
               minWidth: 100.0,
               height: 50.0,
+              // ignore: deprecated_member_use
               child: RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
@@ -67,6 +71,7 @@ class QRCodeResult extends GetView<ScanController> {
             ButtonTheme(
               minWidth: 100.0,
               height: 50.0,
+              // ignore: deprecated_member_use
               child: RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0),
@@ -87,6 +92,7 @@ class QRCodeResult extends GetView<ScanController> {
     );
   }
 
+  ///animação do botão de altorizar visita
   _flagAutorizar(bool flag) {
     if (!flag) {
       return Text(
@@ -101,19 +107,22 @@ class QRCodeResult extends GetView<ScanController> {
     }
   }
 
+  ///busca as informações no controler e atualiza a tela de home
+  ///com a novas informações
   Future<void> _returnHome() async {
     VisitaController visitaController = Get.find();
     visitaController.isOnScan = false;
-    await visitaController.fetch('ocorrido');
-    await visitaController.fetch('naoOcorrido');
+    await visitaController.fetch();
     controller.flagAutorizar = false;
     Get.toNamed(Routes.HOME);
   }
 
+  ///metodo de converção da string recebida para o formato json
   Visita _converteStringToObject(String result) {
     return Visita.fromJson(jsonDecode(result));
   }
 
+  ///metodo generico para mostrar as informações na tela
   _listTile(String title, String subTitle) {
     return ListTile(
       title: Text(title),

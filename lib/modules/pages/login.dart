@@ -5,9 +5,9 @@ import '../controllers/controllers.dart';
 import '../routes/routes.dart';
 import '../widgets/widgets.dart';
 
+///classe que cria a tela de Login
 class Login extends GetView<LoginController> {
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,6 +29,7 @@ class Login extends GetView<LoginController> {
     );
   }
 
+  ///metodo que define a estrutura adicionando os widgets
   Form _body(LoginController controller, BuildContext context) {
     return Form(
       key: _formKey,
@@ -67,6 +68,7 @@ class Login extends GetView<LoginController> {
     );
   }
 
+  ///metodo que controla o botão "Entrar" da tela
   _onClickLogin(LoginController controller, BuildContext context) async {
     String login = controller.usuario.text;
     String senha = controller.senha.text;
@@ -86,6 +88,7 @@ class Login extends GetView<LoginController> {
     }
   }
 
+  ///metodo que verifica se o login está nulo
   String _validateLogin(String value) {
     if (value.isEmpty) {
       return "Digite o usuário ";
@@ -93,6 +96,7 @@ class Login extends GetView<LoginController> {
     return null;
   }
 
+  ///metodo que verifica se a senha está nula
   String _validateSenha(String value) {
     if (value.isEmpty) {
       return "Digite a senha";
@@ -100,6 +104,7 @@ class Login extends GetView<LoginController> {
     return null;
   }
 
+  ///metodo que mostra mensagem na tela caso login/senha estejam errados
   showAlertDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -108,6 +113,7 @@ class Login extends GetView<LoginController> {
           title: Text('Dados Inválidos'),
           content: Text('Verifique se o usuário ou/e a senha estão corretos!'),
           actions: [
+            // ignore: deprecated_member_use
             FlatButton(
               child: Text("OK"),
               color: Colors.green,

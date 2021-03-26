@@ -10,6 +10,7 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+///classe que cria a tela de Home
 class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -33,6 +34,8 @@ class _HomeState extends State<Home> {
     );
   }
 
+  ///metodo que define como o botão voltar do android vai funcionar
+  ///no caso, se apertado retornará a tela de login
   Future<bool> _onBackPressed() {
     return showDialog(
       context: Get.context,
@@ -40,11 +43,13 @@ class _HomeState extends State<Home> {
         title: Text('Deseja Sair?'),
         content: Text('Você será direcionado para a tela de login'),
         actions: [
+          // ignore: deprecated_member_use
           FlatButton(
             onPressed: () => Navigator.of(context).pop(false),
             child: Text('Não'),
             color: Colors.green,
           ),
+          // ignore: deprecated_member_use
           FlatButton(
             onPressed: () {
               var loginController = Get.find<LoginController>();

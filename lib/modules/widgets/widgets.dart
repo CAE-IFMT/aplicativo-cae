@@ -1,3 +1,4 @@
+///impotações de todos os widgets
 export 'body_cadastrados.dart';
 export 'body_qr_code.dart';
 export 'button.dart';

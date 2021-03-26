@@ -1,5 +1,5 @@
 import 'models.dart';
-
+///classe que define a Visita
 class Visita {
   int id;
   String data;
@@ -8,6 +8,7 @@ class Visita {
   Professor professor;
   Visitante visitante;
 
+  ///construtor
   Visita(
       {this.id,
       this.data,
@@ -16,6 +17,7 @@ class Visita {
       this.professor,
       this.visitante});
 
+  ///converte dados json para o tipo Visita
   Visita.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     data = json['data'];
@@ -29,6 +31,7 @@ class Visita {
         : null;
   }
 
+  ///converte o tipo Visita para o formato json
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;

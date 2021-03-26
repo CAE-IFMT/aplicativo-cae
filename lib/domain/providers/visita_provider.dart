@@ -5,13 +5,19 @@ import 'package:get_storage/get_storage.dart';
 import '../models/models.dart';
 import 'providers.dart';
 
+///link que buca o servidor na nuvem
 const api = 'https://cae-ifmt.herokuapp.com';
 
 class VisitaProvider implements AbstractVisitaProvider {
+
+  ///responsável pela comunicação Http
   final Dio dio;
 
+  ///contrutor
   VisitaProvider({@required this.dio});
 
+
+  ///metodo responsavel por recebe a lista de visitas do sevidor
   @override
   Future<List<Visita>> fetchVisita() async {
     GetStorage box = GetStorage();
@@ -28,6 +34,7 @@ class VisitaProvider implements AbstractVisitaProvider {
     }
   }
 
+  ///método que busca visita pelo id passado
   @override
   Future<Visita> fetchById(int id) async {
     GetStorage box = GetStorage();
@@ -43,6 +50,7 @@ class VisitaProvider implements AbstractVisitaProvider {
     }
   }
 
+  ///método que altera o status da visita passada pelo id
   @override
   Future<Visita> updateStatusOcorrido(int id) async {
     GetStorage box = GetStorage();
@@ -58,6 +66,7 @@ class VisitaProvider implements AbstractVisitaProvider {
     }
   }
 
+  ///metodo responsavel por recebe a lista de visitas não ocorridas do sevidor
   @override
   Future<List<Visita>> listaNaoOcorridos() async {
     GetStorage box = GetStorage();
@@ -74,6 +83,7 @@ class VisitaProvider implements AbstractVisitaProvider {
     }
   }
 
+  ///metodo responsavel por recebe a lista de visitas  ocorridas do sevidor
   @override
   Future<List<Visita>> listaOcorridos() async {
     GetStorage box = GetStorage();

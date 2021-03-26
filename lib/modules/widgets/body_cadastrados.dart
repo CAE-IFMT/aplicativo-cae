@@ -5,6 +5,8 @@ import '../../domain/models/models.dart';
 import '../controllers/controllers.dart';
 import 'widgets.dart';
 
+///Classe onde recebe informações de visita
+///do controlador e interagem com a tela Home
 class ListaCadastrados extends GetView<VisitaController> {
   @override
   Widget build(BuildContext context) {
@@ -12,8 +14,7 @@ class ListaCadastrados extends GetView<VisitaController> {
       body: GetBuilder(
           init: controller,
           initState: (state) async {
-            await controller.fetch('ocorridos');
-            await controller.fetch('naoOcorridos');
+            await controller.fetch();
           },
           builder: (controller) {
             return controller.isOnScan
@@ -23,14 +24,20 @@ class ListaCadastrados extends GetView<VisitaController> {
     );
   }
 
+  ///metodo para criação de tabs onde vão ser separadas
+  ///as visitas ocorridas e não ocorridas
   _buildListView(VisitaController controller) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50.0),
         child: AppBar(
-            bottom: TabBar(
-          tabs: <Widget>[Tab(text: 'Cadastrados'), Tab(text: 'Ocorridos')],
-        )),
+          bottom: TabBar(
+            tabs: <Widget>[
+              Tab(text: 'Cadastrados'),
+              Tab(text: 'Ocorridos'),
+            ],
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.qr_code_scanner),
@@ -43,26 +50,26 @@ class ListaCadastrados extends GetView<VisitaController> {
             controller.listNaoOcorridos == null
                 ? Center(child: CircularProgressIndicator())
                 : _listView(controller.listNaoOcorridos),
-            'naoOcorridos',
           ),
           _refreshIndicator(
             controller.listOcorridos == null
                 ? Center(child: CircularProgressIndicator())
                 : _listView(controller.listOcorridos),
-            'ocorridos',
           ),
         ],
       ),
     );
   }
 
-  RefreshIndicator _refreshIndicator(Widget widget, String flag) {
+  ///metodo para controlar a atualização de informações na tela
+  RefreshIndicator _refreshIndicator(Widget widget) {
     return RefreshIndicator(
-      onRefresh: () => _onRefresh(flag),
+      onRefresh: () => _onRefresh(),
       child: widget,
     );
   }
 
+  ///imprime na tela todas as informações relacionadas a visita
   ListView _listView(List<Visita> visitas) {
     return ListView.separated(
       itemCount: visitas.length,
@@ -95,6 +102,7 @@ class ListaCadastrados extends GetView<VisitaController> {
     );
   }
 
+  ///metodo generico para mostrar as informações na tela
   _listTile(String title, String subTitle) {
     return ListTile(
       title: Text(title),
@@ -102,8 +110,9 @@ class ListaCadastrados extends GetView<VisitaController> {
     );
   }
 
-  Future<void> _onRefresh(String flag) {
+  ///metodo para buscar as informações atualizadas no controlador
+  Future<void> _onRefresh() {
     VisitaController visitaController = Get.find();
-    return visitaController.fetch(flag);
+    return visitaController.fetch();
   }
 }

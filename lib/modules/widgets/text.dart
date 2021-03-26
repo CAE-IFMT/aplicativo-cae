@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// Classe generica para criação de textField
+/// usada para inserção e controle de informações
 class AppText extends StatelessWidget {
   final String label;
   final String hint;
